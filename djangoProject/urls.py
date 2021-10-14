@@ -16,10 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from myfirstapp.views import calc
+from myfirstapp.views import User
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
     # path('<int:a>', calc),
-    path('<int:a>/<str:operation>/<int:b>', calc)
+    path('users', User.as_view())
 ]
