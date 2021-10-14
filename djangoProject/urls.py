@@ -20,6 +20,6 @@ from myfirstapp.views import calc
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
-    # path('<int:a>', calc),
-    path('<int:a>/<str:operation>/<int:b>', calc)
+
+    path('<str:a>/<str:operation>/<str:b>', calc)
 ]
