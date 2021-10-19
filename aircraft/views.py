@@ -11,7 +11,10 @@ from .serializers import AircraftSerializer
 
 class AircraftReadCreateView(APIView):
     def get(self, *args, **kwargs):
+        year = self.request.query_params.get('year')
         aircrafts = AircraftModel.objects.all()
+        if year:
+            aircrafts = AircraftModel.objects.filter(year=year)
         serializer = AircraftSerializer(instance=aircrafts, many=True)
         return Response(serializer.data, status.HTTP_200_OK)
 
@@ -55,13 +58,12 @@ class AircraftRetriveUpdateDestroyView(APIView):
         aircraft.delete()
         return Response(status.HTTP_204_NO_CONTENT)
 
-
-class AircraftRetriveByYearView(APIView):
-    def get(self, *args, **kwargs):
-        year = kwargs.get('year')
-        exists = AircraftModel.objects.filter(year=year).exists()
-        if not exists:
-            return Response([],'aircraft with this year is not found', status.HTTP_404_NOT_FOUND)
-        aircraft = AircraftModel.objects.filter(year=year)
-        serializer = AircraftSerializer(instance=aircraft)
-        return Response(serializer.data, status.HTTP_200_OK)
+# class AircraftRetriveByYearView(APIView):
+#     def get(self, *args, **kwargs):
+#         year = kwargs.get('year')
+#         exists = AircraftModel.objects.filter(year=2000).exists()
+#         if not exists:
+#             return Response([], 'aircraft with this year is not found', status.HTTP_404_NOT_FOUND)
+#         aircraft = AircraftModel.objects.filter(year=2000)
+#         serializer = AircraftSerializer(instance=aircraft, many=True)
+#         return Response(serializer.data, status.HTTP_200_OK)
