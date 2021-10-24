@@ -22,6 +22,7 @@ Django = "==3.2.8"
 django-cors-headers = "*"
 
 [dev-packages]
+isort = "*"
 
 [requires]
 python_version = "3.9"

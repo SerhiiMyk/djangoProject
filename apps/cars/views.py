@@ -1,6 +1,5 @@
 # Create your views here.
 
-
 from .models import CarModel
 from .serializers import CarSerializer
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
