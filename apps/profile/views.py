@@ -1,3 +1,6 @@
-from django.shortcuts import render
+from rest_framework.generics import UpdateAPIView
 
-# Create your views here.
+from serializers import AddAvatarSerializer
+
+
+

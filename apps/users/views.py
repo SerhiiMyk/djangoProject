@@ -2,10 +2,12 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 
 from rest_framework import status
-from rest_framework.generics import GenericAPIView, ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.generics import GenericAPIView, ListCreateAPIView, RetrieveUpdateDestroyAPIView, UpdateAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 
+from ..profile.serializers import AvatarSerializer
+from .permissions import IsStaff, IsSuperUser
 from .serisalizers import UserSerializer
 
 UserModel: User = get_user_model()
@@ -20,6 +22,9 @@ class UserListView(ListCreateAPIView):
             return AllowAny(),
         return IsAuthenticated(),
 
+    def get_queryset(self):
+        return UserModel.objects.exclude(id=self.request.user.id)
+
 
 class UserRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
     serializer_class = UserSerializer
@@ -29,7 +34,7 @@ class UserRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
 class UserToActiveView(GenericAPIView):
     serializer_class = UserSerializer
     queryset = UserModel.objects.all()
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsStaff,)
 
     def patch(self, *args, **kwargs):
         user = self.get_object()
@@ -47,7 +52,7 @@ class UserToActiveView(GenericAPIView):
 class UserToAdminView(GenericAPIView):
     serializer_class = UserSerializer
     queryset = UserModel.objects.all()
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsSuperUser,)
 
     def patch(self, *args, **kwargs):
         user = self.get_object()
@@ -60,3 +65,14 @@ class UserToAdminView(GenericAPIView):
         UserModel.objects.to_user(user)
         data = UserSerializer(user).data
         return Response(data, status.HTTP_200_OK)
+
+
+class AddAvatarView(GenericAPIView):
+
+    def patch(self, *args, **kwargs):
+        avatar_data = self.request.FILES.get('avatar')
+        serializer = AvatarSerializer(data={'url': avatar_data})
+        serializer.is_valid(raise_exception=True)
+        serializer.save(profile=self.request.user.profile)
+        user = UserSerializer(self.request.user).data
+        return Response(user, status.HTTP_200_OK)

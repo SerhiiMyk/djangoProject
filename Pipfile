@@ -20,6 +20,8 @@ virtualenv = "==20.8.1"
 virtualenv-clone = "==0.5.7"
 Django = "==3.2.8"
 django-cors-headers = "*"
+pillow = "*"
+django-dotenv = "*"
 
 [dev-packages]
 isort = "*"
