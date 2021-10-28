@@ -143,3 +143,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'storage')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 APPEND_SLASH = False
+
+
