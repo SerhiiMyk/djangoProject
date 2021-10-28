@@ -25,6 +25,9 @@ class UserListView(ListCreateAPIView):
     def get_queryset(self):
         return UserModel.objects.exclude(id=self.request.user.id)
 
+    def get_serializer_context(self):
+        return {'request': self.request}
+
 
 class UserRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
     serializer_class = UserSerializer
