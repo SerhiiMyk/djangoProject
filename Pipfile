@@ -22,6 +22,7 @@ Django = "==3.2.8"
 django-cors-headers = "*"
 pillow = "*"
 django-dotenv = "*"
+django-filter = "*"
 
 [dev-packages]
 isort = "*"
