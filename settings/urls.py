@@ -20,7 +20,6 @@ from settings import settings
 
 urlpatterns = [
                   path('auth', include('apps.auth.urls')),
-                  path('cars', include('apps.cars.urls')),
+                  path('apartments', include('apps.apartments.urls')),
                   path('users', include('apps.users.urls')),
-                  path('autoparks', include('apps.autopark.urls'))
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

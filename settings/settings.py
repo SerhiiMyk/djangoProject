@@ -48,8 +48,7 @@ INSTALLED_APPS = [
     'django_filters',
     'corsheaders',
 
-    'apps.autopark',
-    'apps.cars',
+    'apps.apartments',
     'apps.users',
     'apps.profile'
 
