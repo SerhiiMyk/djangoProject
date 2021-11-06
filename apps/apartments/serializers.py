@@ -7,6 +7,6 @@ class ApartmentSerializer(ModelSerializer):
     class Meta:
         model = ApartmentsModel
         fields = '__all__'
-        # extra_kwargs = {
-        #     'users': {'read_only': True}
-        # }
+        extra_kwargs = {
+            'users': {'read_only': True}
+        }

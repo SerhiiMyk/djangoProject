@@ -9,3 +9,4 @@ class ErrorEnum(Enum):
     def __init__(self, msg, code=status.HTTP_400_BAD_REQUEST):
         self.msg = msg
         self.code = code
+
