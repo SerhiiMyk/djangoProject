@@ -1,10 +1,9 @@
 from django.core import validators as V
 from django.db import models
 
-from apps.users.models import UserModel
+from apps.profile.models import ProfileModel
 
 # Create your models here.
-
 
 
 class ApartmentsModel(models.Model):
@@ -23,6 +22,5 @@ class ApartmentsModel(models.Model):
     price = models.IntegerField(validators=[V.MinValueValidator(1), V.MaxValueValidator(100000)])
     check_in = models.DateField()
     check_out = models.DateField()
-
-    # owner = models.ForeignKey(UserModel, on_delete=models.CASCADE, related_name='apartments')
-
+    photo = models.ImageField(upload_to='photo', blank=True)
+    profile = models.ForeignKey(ProfileModel, on_delete=models.CASCADE, related_name='apartments')

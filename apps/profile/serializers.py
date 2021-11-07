@@ -1,5 +1,6 @@
 from rest_framework.serializers import ModelSerializer
 
+from ..apartments.serializers import ApartmentSerializer
 from .models import AvatarModel, ProfileModel
 
 
@@ -10,7 +11,8 @@ class AvatarSerializer(ModelSerializer):
 
 
 class ProfileSerializer(ModelSerializer):
-    avatars = AvatarSerializer(many=True,read_only=True)
+    apartments = ApartmentSerializer(many=True, read_only=True)
+    avatars = AvatarSerializer(many=True, read_only=True)
 
     class Meta:
         model = ProfileModel

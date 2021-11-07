@@ -9,3 +9,8 @@ class IsSuperUser(BasePermission):
 class IsStaff(BasePermission):
     def has_permission(self, request, view):
         return bool(request.user and request.user.is_staff)
+
+
+class IsActive(BasePermission):
+    def has_permission(self, request, view):
+        return bool(request.user and request.user.is_active)
